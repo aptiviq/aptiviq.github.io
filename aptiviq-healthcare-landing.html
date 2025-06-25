@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AptivIQ - Connected Intelligence for Healthcare Decision Making</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066cc;
+            --primary-teal: #00a6a6;
+            --primary-pink: #ff6b9d;
+            --gradient-1: #667eea;
+            --gradient-2: #764ba2;
+            --gradient-3: #00c9ff;
+            --gradient-4: #92fe9d;
+            --text-dark: #1a202c;
+            --text-light: #718096;
+            --bg-light: #f7fafc;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .brain-logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            position: relative;
+        }
+
+        .brain-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .brain-svg {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .brain-svg path {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .logo:hover .brain-svg {
+            transform: scale(1.05);
+        }
+
+        /* Brain pulse animation */
+        @keyframes brainPulse {
+            0%, 100% { 
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            }
+            50% { 
+                filter: drop-shadow(0 2px 8px rgba(255, 107, 157, 0.5)) 
+                        drop-shadow(0 2px 8px rgba(102, 126, 234, 0.5));
+            }
+        }
+
+        .brain-visual svg {
+            animation: brainPulse 4s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--gradient-1));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-teal), var(--gradient-1));
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 166, 166, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 166, 166, 0.6);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00a6a6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: drift 40s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        @keyframes drift {
+            from { transform: translate(0, 0); }
+            to { transform: translate(60px, 60px); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(90deg, #fff, #ffd6ff, #c1ffc1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .primary-button, .secondary-button {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .primary-button {
+            background: white;
+            color: var(--gradient-1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .secondary-button:hover {
+            background: white;
+            color: var(--gradient-1);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeIn 1s ease 0.6s both;
+        }
+
+        .brain-visual {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Neural firing animation */
+        @keyframes neuralFire {
+            0% { 
+                stroke: rgba(255, 255, 255, 0.3);
+                stroke-width: 1;
+            }
+            50% { 
+                stroke: rgba(255, 255, 255, 0.9);
+                stroke-width: 2;
+                filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+            }
+            100% { 
+                stroke: rgba(255, 255, 255, 0.3);
+                stroke-width: 1;
+            }
+        }
+
+        .neural-connections path {
+            animation: neuralFire 3s ease-in-out infinite;
+            animation-delay: calc(var(--delay, 0) * 0.2s);
+        }
+
+        /* Brain breathing animation */
+        @keyframes brainBreathe {
+            0%, 100% { 
+                transform: scale(1);
+            }
+            50% { 
+                transform: scale(1.02);
+            }
+        }
+
+        .left-hemisphere, .right-hemisphere {
+            animation: brainBreathe 4s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .left-hemisphere {
+            animation-delay: 0s;
+        }
+
+        .right-hemisphere {
+            animation-delay: 0.5s;
+        }
+        .connected-intelligence {
+            padding: 5rem 5%;
+            background: white;
+            position: relative;
+        }
+
+        .connected-intelligence::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(102, 126, 234, 0.05), transparent);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-teal), var(--gradient-1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .intelligence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intelligence-card {
+            background: var(--bg-light);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intelligence-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 166, 166, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .intelligence-card:hover::before {
+            opacity: 1;
+        }
+
+        .intelligence-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .intelligence-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-teal), var(--gradient-1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .intelligence-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .intelligence-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Pain Points Section */
+        .pain-points {
+            padding: 5rem 5%;
+            background: var(--bg-light);
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pain-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pain-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--gradient-1), var(--primary-teal));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .pain-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .pain-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pain-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--gradient-1));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pain-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .pain-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .metric {
+            font-weight: 700;
+            color: var(--primary-teal);
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .benefit-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-teal), var(--gradient-1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .benefit-item:hover .benefit-icon {
+            transform: scale(1.1) rotate(360deg);
+        }
+
+        .benefit-item:hover .benefit-icon::after {
+            opacity: 1;
+        }
+
+        .benefit-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .benefit-item p {
+            color: var(--text-light);
+        }
+
+        /* Use Cases Section */
+        .use-cases {
+            padding: 5rem 5%;
+            background: var(--bg-light);
+        }
+
+        .use-case-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: white;
+            color: var(--text-dark);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--primary-teal), var(--gradient-1));
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .use-case-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .use-case-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--gradient-1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .use-case-header h3 {
+            font-size: 1.75rem;
+            color: var(--text-dark);
+        }
+
+        .use-case-content {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .use-case-benefits {
+            margin-top: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .use-case-benefits li {
+            margin-bottom: 0.75rem;
+            list-style: none;
+            position: relative;
+        }
+
+        .use-case-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--primary-teal);
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2), var(--primary-teal));
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: rotate 60s linear infinite;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section .primary-button {
+            font-size: 1.1rem;
+            padding: 1.25rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .intelligence-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .use-case-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="brain-logo">
+                    <div class="brain-container">
+                        <svg class="brain-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Left Brain (Logic/Math) - Anatomical -->
+                            <g class="left-brain">
+                                <!-- Main hemisphere with gyri -->
+                                <path d="M 50 15 
+                                         C 45 10, 35 10, 30 15
+                                         C 25 18, 22 22, 20 28
+                                         C 18 32, 18 35, 19 40
+                                         C 20 42, 19 45, 20 48
+                                         C 21 52, 19 55, 21 58
+                                         C 22 62, 20 65, 22 68
+                                         C 24 72, 26 75, 30 78
+                                         C 35 82, 42 85, 50 85
+                                         Z" 
+                                      fill="url(#pinkGradient)" opacity="0.9"/>
+                                
+                                <!-- Brain folds (gyri and sulci) -->
+                                <path d="M 30 25 Q 35 23, 40 25 Q 38 28, 35 30 Q 32 28, 30 25"
+                                      fill="url(#pinkGradient)" opacity="0.7" stroke="#ff6b9d" stroke-width="0.5"/>
+                                <path d="M 28 40 Q 33 38, 38 40 Q 36 43, 33 45 Q 30 43, 28 40"
+                                      fill="url(#pinkGradient)" opacity="0.7" stroke="#ff6b9d" stroke-width="0.5"/>
+                                <path d="M 30 55 Q 35 53, 40 55 Q 38 58, 35 60 Q 32 58, 30 55"
+                                      fill="url(#pinkGradient)" opacity="0.7" stroke="#ff6b9d" stroke-width="0.5"/>
+                                <path d="M 32 70 Q 37 68, 42 70 Q 40 73, 37 75 Q 34 73, 32 70"
+                                      fill="url(#pinkGradient)" opacity="0.7" stroke="#ff6b9d" stroke-width="0.5"/>
+                                
+                                <!-- Additional sulci (grooves) for realism -->
+                                <path d="M 35 30 C 37 32, 39 32, 41 30" stroke="#ff6b9d" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <path d="M 32 45 C 34 47, 36 47, 38 45" stroke="#ff6b9d" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <path d="M 35 60 C 37 62, 39 62, 41 60" stroke="#ff6b9d" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <path d="M 25 35 Q 30 33, 32 35" stroke="#ff6b9d" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <path d="M 28 50 Q 33 48, 35 50" stroke="#ff6b9d" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <text x="33" y="35" fill="white" font-size="6" font-weight="bold" opacity="0.8">∑</text>
+                                <text x="30" y="50" fill="white" font-size="5" font-weight="bold" opacity="0.8">π</text>
+                                <text x="35" y="65" fill="white" font-size="5" font-weight="bold" opacity="0.8">∞</text>
+                                <!-- Blood vessels -->
+                                <g opacity="0.3">
+                                    <path d="M 30 20 Q 35 25, 32 30 Q 30 35, 35 40" stroke="#ff4444" stroke-width="0.3" fill="none"/>
+                                    <path d="M 38 25 Q 40 30, 38 35 Q 36 40, 40 45" stroke="#ff4444" stroke-width="0.3" fill="none"/>
+                                    <!-- Blood vessels -->
+                                <g opacity="0.3">
+                                    <path d="M 70 20 Q 65 25, 68 30 Q 70 35, 65 40" stroke="#4444ff" stroke-width="0.3" fill="none"/>
+                                    <path d="M 62 25 Q 60 30, 62 35 Q 64 40, 60 45" stroke="#4444ff" stroke-width="0.3" fill="none"/>
+                                </g>
+                            
+                            <!-- Right Brain (Creative/Emotional) - Anatomical -->
+                            <g class="right-brain">
+                                <!-- Main hemisphere with gyri -->
+                                <path d="M 50 15 
+                                         C 55 10, 65 10, 70 15
+                                         C 75 18, 78 22, 80 28
+                                         C 82 32, 82 35, 81 40
+                                         C 80 42, 81 45, 80 48
+                                         C 79 52, 81 55, 79 58
+                                         C 78 62, 80 65, 78 68
+                                         C 76 72, 74 75, 70 78
+                                         C 65 82, 58 85, 50 85
+                                         Z" 
+                                      fill="url(#multiGradient)" opacity="0.9"/>
+                                
+                                <!-- Brain folds (gyri and sulci) with creative elements -->
+                                <path d="M 70 25 Q 65 23, 60 25 Q 62 28, 65 30 Q 68 28, 70 25"
+                                      fill="url(#multiGradient)" opacity="0.7" stroke="#667eea" stroke-width="0.5"/>
+                                <path d="M 72 40 Q 67 38, 62 40 Q 64 43, 67 45 Q 70 43, 72 40"
+                                      fill="url(#multiGradient)" opacity="0.7" stroke="#764ba2" stroke-width="0.5"/>
+                                <path d="M 70 55 Q 65 53, 60 55 Q 62 58, 65 60 Q 68 58, 70 55"
+                                      fill="url(#multiGradient)" opacity="0.7" stroke="#00a6a6" stroke-width="0.5"/>
+                                <path d="M 68 70 Q 63 68, 58 70 Q 60 73, 63 75 Q 66 73, 68 70"
+                                      fill="url(#multiGradient)" opacity="0.7" stroke="#f093fb" stroke-width="0.5"/>
+                                
+                                <!-- Additional sulci (grooves) for realism -->
+                                <path d="M 65 30 C 63 32, 61 32, 59 30" stroke="#667eea" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <path d="M 68 45 C 66 47, 64 47, 62 45" stroke="#764ba2" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <path d="M 65 60 C 63 62, 61 62, 59 60" stroke="#00a6a6" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <path d="M 75 35 Q 70 33, 68 35" stroke="#667eea" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <path d="M 72 50 Q 67 48, 65 50" stroke="#764ba2" stroke-width="0.3" fill="none" opacity="0.5"/>
+                                <circle cx="65" cy="30" r="2" fill="#ffd6ff" opacity="0.8"/>
+                                <circle cx="67" cy="45" r="2.5" fill="#c1ffc1" opacity="0.8"/>
+                                <circle cx="63" cy="55" r="2" fill="#ffdfba" opacity="0.8"/>
+                                <circle cx="65" cy="70" r="2" fill="#bae1ff" opacity="0.8"/>
+                            </g>
+                            
+                            <!-- Corpus callosum (connection) -->
+                            <path d="M 50 30 C 48 35, 48 45, 50 50 C 52 45, 52 35, 50 30"
+                                  fill="white" opacity="0.4"/>
+                            <path d="M 50 55 C 48 60, 48 70, 50 75 C 52 70, 52 60, 50 55"
+                                  fill="white" opacity="0.4"/>
+                            
+                            <!-- Brain stem -->
+                            <rect x="47" y="80" width="6" height="10" rx="3" fill="url(#stemGradient)" opacity="0.8"/>
+                            
+                            <!-- Cerebellum -->
+                            <g opacity="0.7">
+                                <ellipse cx="50" cy="88" rx="8" ry="6" fill="url(#stemGradient)"/>
+                                <path d="M 42 86 Q 50 84, 58 86" stroke="#999" stroke-width="0.5" fill="none"/>
+                                <path d="M 42 88 Q 50 86, 58 88" stroke="#999" stroke-width="0.5" fill="none"/>
+                                <path d="M 42 90 Q 50 88, 58 90" stroke="#999" stroke-width="0.5" fill="none"/>
+                            </g>
+                            
+                            <!-- Neural connections -->
+                            <g opacity="0.3">
+                                <path d="M 35 35 Q 50 30, 65 35" stroke="white" stroke-width="1" fill="none"/>
+                                <path d="M 35 50 Q 50 45, 65 50" stroke="white" stroke-width="1" fill="none"/>
+                                <path d="M 35 65 Q 50 60, 65 65" stroke="white" stroke-width="1" fill="none"/>
+                            </g>
+                            
+                            <defs>
+                                <linearGradient id="pinkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff6b9d"/>
+                                    <stop offset="100%" style="stop-color:#ff8787"/>
+                                </linearGradient>
+                                <linearGradient id="multiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#667eea"/>
+                                    <stop offset="33%" style="stop-color:#764ba2"/>
+                                    <stop offset="66%" style="stop-color:#00a6a6"/>
+                                    <stop offset="100%" style="stop-color:#f093fb"/>
+                                </linearGradient>
+                                <linearGradient id="stemGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff6b9d"/>
+                                    <stop offset="50%" style="stop-color:#667eea"/>
+                                    <stop offset="100%" style="stop-color:#999"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                AptivIQ
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact" class="cta-button">Request Demo</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Empowering Healthcare with <span>Connected Intelligence</span></h1>
+                <p>Bridge the gap between data and decisions. AptivIQ's adaptive AI augments clinical expertise and streamlines operations, enabling proactive, personalized care at scale.</p>
+                <div class="hero-buttons">
+                    <a href="#demo" class="primary-button">See It In Action</a>
+                    <a href="#solutions" class="secondary-button">Explore Solutions</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="brain-visual">
+                    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Central brain -->
+                        <g transform="translate(200, 200)">
+                            <!-- Left hemisphere - Anatomical -->
+                            <g class="left-hemisphere">
+                                <!-- Main brain structure -->
+                                <path d="M 0 -100 
+                                         C -20 -110, -50 -105, -70 -90
+                                         C -85 -75, -95 -60, -100 -40
+                                         C -105 -20, -105 0, -100 20
+                                         C -95 40, -90 55, -85 70
+                                         C -75 85, -65 95, -50 100
+                                         C -35 105, -20 105, 0 105
+                                         Z" 
+                                      fill="url(#heroLeftGradient)" opacity="0.9"/>
+                                
+                                <!-- Frontal lobe -->
+                                <path d="M -20 -90 C -35 -95, -50 -90, -60 -80 C -55 -70, -45 -65, -35 -70 C -25 -75, -15 -80, -20 -90"
+                                      fill="url(#heroLeftGradient)" opacity="0.7" stroke="#ff6b9d" stroke-width="1"/>
+                                
+                                <!-- Parietal lobe -->
+                                <path d="M -25 -40 C -40 -45, -55 -40, -65 -30 C -60 -20, -50 -15, -40 -20 C -30 -25, -20 -30, -25 -40"
+                                      fill="url(#heroLeftGradient)" opacity="0.7" stroke="#ff6b9d" stroke-width="1"/>
+                                
+                                <!-- Temporal lobe -->
+                                <path d="M -30 10 C -45 5, -60 10, -70 20 C -65 30, -55 35, -45 30 C -35 25, -25 20, -30 10"
+                                      fill="url(#heroLeftGradient)" opacity="0.7" stroke="#ff6b9d" stroke-width="1"/>
+                                
+                                <!-- Occipital lobe -->
+                                <path d="M -25 60 C -40 55, -55 60, -65 70 C -60 80, -50 85, -40 80 C -30 75, -20 70, -25 60"
+                                      fill="url(#heroLeftGradient)" opacity="0.7" stroke="#ff6b9d" stroke-width="1"/>
+                                
+                                <!-- Additional sulci for left hemisphere -->
+                                <path d="M -45 -60 C -40 -58, -35 -58, -30 -60" stroke="#ff6b9d" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <path d="M -50 -20 C -45 -18, -40 -18, -35 -20" stroke="#ff6b9d" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <path d="M -45 20 C -40 22, -35 22, -30 20" stroke="#ff6b9d" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <path d="M -55 0 Q -45 -5, -40 0" stroke="#ff6b9d" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <path d="M -50 40 Q -40 35, -35 40" stroke="#ff6b9d" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <text x="-50" y="-40" fill="white" font-size="14" font-weight="bold" opacity="0.8">∑</text>
+                                <text x="-45" y="0" fill="white" font-size="12" font-weight="bold" opacity="0.8">π</text>
+                                <text x="-50" y="40" fill="white" font-size="12" font-weight="bold" opacity="0.8">∞</text>
+                                <text x="-40" y="-70" fill="white" font-size="10" font-weight="bold" opacity="0.6">f(x)</text>
+                                <text x="-55" y="70" fill="white" font-size="10" font-weight="bold" opacity="0.6">∂/∂x</text>
+                            </g>
+                            
+                            <!-- Right hemisphere - Anatomical -->
+                            <g class="right-hemisphere">
+                                <!-- Main brain structure -->
+                                <path d="M 0 -100 
+                                         C 20 -110, 50 -105, 70 -90
+                                         C 85 -75, 95 -60, 100 -40
+                                         C 105 -20, 105 0, 100 20
+                                         C 95 40, 90 55, 85 70
+                                         C 75 85, 65 95, 50 100
+                                         C 35 105, 20 105, 0 105
+                                         Z" 
+                                      fill="url(#heroRightGradient)" opacity="0.9"/>
+                                
+                                <!-- Frontal lobe with creative elements -->
+                                <path d="M 20 -90 C 35 -95, 50 -90, 60 -80 C 55 -70, 45 -65, 35 -70 C 25 -75, 15 -80, 20 -90"
+                                      fill="url(#heroRightGradient)" opacity="0.7" stroke="#667eea" stroke-width="1"/>
+                                
+                                <!-- Parietal lobe -->
+                                <path d="M 25 -40 C 40 -45, 55 -40, 65 -30 C 60 -20, 50 -15, 40 -20 C 30 -25, 20 -30, 25 -40"
+                                      fill="url(#heroRightGradient)" opacity="0.7" stroke="#764ba2" stroke-width="1"/>
+                                
+                                <!-- Temporal lobe -->
+                                <path d="M 30 10 C 45 5, 60 10, 70 20 C 65 30, 55 35, 45 30 C 35 25, 25 20, 30 10"
+                                      fill="url(#heroRightGradient)" opacity="0.7" stroke="#00a6a6" stroke-width="1"/>
+                                
+                                <!-- Occipital lobe -->
+                                <path d="M 25 60 C 40 55, 55 60, 65 70 C 60 80, 50 85, 40 80 C 30 75, 20 70, 25 60"
+                                      fill="url(#heroRightGradient)" opacity="0.7" stroke="#f093fb" stroke-width="1"/>
+                                
+                                <!-- Additional sulci for right hemisphere -->
+                                <path d="M 45 -60 C 40 -58, 35 -58, 30 -60" stroke="#667eea" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <path d="M 50 -20 C 45 -18, 40 -18, 35 -20" stroke="#764ba2" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <path d="M 45 20 C 40 22, 35 22, 30 20" stroke="#00a6a6" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <path d="M 55 0 Q 45 -5, 40 0" stroke="#764ba2" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <path d="M 50 40 Q 40 35, 35 40" stroke="#f093fb" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                <circle cx="40" cy="-60" r="5" fill="#ffd6ff" opacity="0.8">
+                                    <animate attributeName="r" values="5;7;5" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="50" cy="-20" r="6" fill="#c1ffc1" opacity="0.8">
+                                    <animate attributeName="r" values="6;8;6" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="45" cy="20" r="5" fill="#ffdfba" opacity="0.8">
+                                    <animate attributeName="r" values="5;7;5" dur="3s" begin="1s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="55" cy="60" r="6" fill="#bae1ff" opacity="0.8">
+                                    <animate attributeName="r" values="6;8;6" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+                            
+                            <!-- Corpus callosum (connecting structure) -->
+                            <g opacity="0.6">
+                                <path d="M -10 -60 C 0 -65, 0 -65, 10 -60 L 10 -40 C 0 -35, 0 -35, -10 -40 Z"
+                                      fill="white"/>
+                                <path d="M -10 -20 C 0 -25, 0 -25, 10 -20 L 10 0 C 0 5, 0 5, -10 0 Z"
+                                      fill="white"/>
+                                <path d="M -10 20 C 0 15, 0 15, 10 20 L 10 40 C 0 45, 0 45, -10 40 Z"
+                                      fill="white"/>
+                            </g>
+                            
+                            <!-- Brain stem -->
+                            <path d="M -15 100 C -15 110, -10 120, 0 125 C 10 120, 15 110, 15 100"
+                                  fill="url(#brainStemGradient)" opacity="0.8"/>
+                            
+                            <!-- Cerebellum -->
+                            <g opacity="0.7">
+                                <ellipse cx="0" cy="115" rx="20" ry="15" fill="url(#brainStemGradient)"/>
+                                <path d="M -18 110 Q 0 108, 18 110" stroke="#999" stroke-width="1" fill="none"/>
+                                <path d="M -18 115 Q 0 113, 18 115" stroke="#999" stroke-width="1" fill="none"/>
+                                <path d="M -18 120 Q 0 118, 18 120" stroke="#999" stroke-width="1" fill="none"/>
+                            </g>
+                            
+                            <!-- Neural network connections -->
+                            <g class="neural-connections" opacity="0.5">
+                                <!-- External nodes -->
+                                <circle cx="-150" cy="-80" r="10" fill="white">
+                                    <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <path d="M -70 -60 Q -100 -70, -140 -80" stroke="white" stroke-width="2" fill="none">
+                                    <animate attributeName="stroke-width" values="2;4;2" dur="3s" repeatCount="indefinite"/>
+                                </path>
+                                
+                                <circle cx="150" cy="-80" r="10" fill="white">
+                                    <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <path d="M 70 -60 Q 100 -70, 140 -80" stroke="white" stroke-width="2" fill="none">
+                                    <animate attributeName="stroke-width" values="2;4;2" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+                                </path>
+                                
+                                <circle cx="-150" cy="80" r="10" fill="white">
+                                    <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" begin="1s" repeatCount="indefinite"/>
+                                </circle>
+                                <path d="M -70 60 Q -100 70, -140 80" stroke="white" stroke-width="2" fill="none">
+                                    <animate attributeName="stroke-width" values="2;4;2" dur="3s" begin="1s" repeatCount="indefinite"/>
+                                </path>
+                                
+                                <circle cx="150" cy="80" r="10" fill="white">
+                                    <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <path d="M 70 60 Q 100 70, 140 80" stroke="white" stroke-width="2" fill="none">
+                                    <animate attributeName="stroke-width" values="2;4;2" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                                </path>
+                            </g>
+                            
+                            <!-- Data flow particles -->
+                            <g class="data-particles">
+                                <circle r="3" fill="white">
+                                    <animateMotion dur="4s" repeatCount="indefinite">
+                                        <mpath href="#dataPath1"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle r="3" fill="white">
+                                    <animateMotion dur="4s" begin="1s" repeatCount="indefinite">
+                                        <mpath href="#dataPath2"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle r="3" fill="white">
+                                    <animateMotion dur="4s" begin="2s" repeatCount="indefinite">
+                                        <mpath href="#dataPath3"/>
+                                    </animateMotion>
+                                </circle>
+                            </g>
+                            
+                            <!-- Hidden paths for particle animation -->
+                            <path id="dataPath1" d="M -100 0 Q -50 -50 0 0 Q 50 50 100 0" fill="none"/>
+                            <path id="dataPath2" d="M -80 -40 Q 0 -20 80 -40" fill="none"/>
+                            <path id="dataPath3" d="M -80 40 Q 0 20 80 40" fill="none"/>
+                        </g>
+                        
+                        <defs>
+                            <linearGradient id="heroLeftGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ff6b9d"/>
+                                <stop offset="50%" style="stop-color:#ff8787"/>
+                                <stop offset="100%" style="stop-color:#ff6b9d"/>
+                            </linearGradient>
+                            <linearGradient id="heroRightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea"/>
+                                <stop offset="25%" style="stop-color:#764ba2"/>
+                                <stop offset="50%" style="stop-color:#00a6a6"/>
+                                <stop offset="75%" style="stop-color:#92fe9d"/>
+                                <stop offset="100%" style="stop-color:#667eea"/>
+                            </linearGradient>
+                            <linearGradient id="brainStemGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ff6b9d"/>
+                                <stop offset="33%" style="stop-color:#667eea"/>
+                                <stop offset="66%" style="stop-color:#999"/>
+                                <stop offset="100%" style="stop-color:#666"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connected Intelligence Section -->
+    <section class="connected-intelligence">
+        <div class="section-header">
+            <h2>The Power of <span class="gradient-text">Connected Intelligence</span></h2>
+            <p>Intelligently connecting data, technology, and human expertise to transform healthcare decision-making</p>
+        </div>
+        <div class="intelligence-grid">
+            <div class="intelligence-card">
+                <div class="intelligence-icon">🔗</div>
+                <h3>Data Integration</h3>
+                <p>Seamlessly connect EMRs, lab systems, and operational platforms to create a unified intelligence layer that breaks down data silos.</p>
+            </div>
+            <div class="intelligence-card">
+                <div class="intelligence-icon">🧠</div>
+                <h3>Augmented Decisions</h3>
+                <p>AI that enhances, not replaces, clinical judgment by providing evidence-based recommendations at the point of care.</p>
+            </div>
+            <div class="intelligence-card">
+                <div class="intelligence-icon">⚡</div>
+                <h3>Real-Time Insights</h3>
+                <p>Transform raw data into actionable intelligence instantly, enabling proactive interventions and optimized workflows.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points Section -->
+    <section class="pain-points" id="solutions">
+        <div class="section-header">
+            <h2>Solving Healthcare's Most Critical <span class="gradient-text">Challenges</span></h2>
+            <p>Address complex operational and clinical pain points with intelligent, adaptive solutions</p>
+        </div>
+        <div class="pain-grid">
+            <div class="pain-card">
+                <div class="pain-icon">📊</div>
+                <h3>Fragmented Data & Decision Fatigue</h3>
+                <p>Healthcare professionals face information overload from disparate systems. AptivIQ creates a unified intelligence layer, reducing analysis time by <span class="metric">75%</span> and combating decision fatigue with smart prioritization.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">⏱️</div>
+                <h3>Reactive vs. Proactive Care</h3>
+                <p>Current systems often catch problems too late. Our predictive analytics identify at-risk patients <span class="metric">6-12 hours earlier</span>, enabling timely interventions that improve outcomes and reduce emergency escalations.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">💰</div>
+                <h3>Operational Inefficiencies</h3>
+                <p>Manual processes and poor resource allocation waste millions. AptivIQ optimizes workflows, reducing operational costs by up to <span class="metric">30%</span> while improving staff satisfaction and patient flow.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🎯</div>
+                <h3>Care Coordination Gaps</h3>
+                <p>Siloed departments lead to fragmented care. Our platform enables seamless collaboration across teams, reducing care coordination errors by <span class="metric">45%</span> and improving patient satisfaction scores.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🔄</div>
+                <h3>Preventable Readmissions</h3>
+                <p>High readmission rates strain resources and harm patients. AptivIQ's risk stratification identifies vulnerable patients, reducing 30-day readmissions by <span class="metric">25%</span> through targeted interventions.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">📈</div>
+                <h3>Capacity Crises</h3>
+                <p>Unpredictable demand creates bottlenecks. Our AI forecasts patient flow with <span class="metric">92% accuracy</span>, enabling proactive staffing and bed management that prevents overcrowding.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="section-header">
+            <h2>Transform Your Healthcare Organization with <span class="gradient-text">AptivIQ</span></h2>
+            <p>Experience the future of healthcare decision-making with our comprehensive platform</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">🤖</div>
+                <h3>Healthcare-Grade AI</h3>
+                <p>Purpose-built for healthcare with clinical validation, ensuring recommendations you can trust for patient care decisions.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📱</div>
+                <h3>Workflow Integration</h3>
+                <p>Seamlessly embeds into existing clinical workflows, requiring no disruption to current processes or extensive training.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🔐</div>
+                <h3>Enterprise Security</h3>
+                <p>HIPAA-compliant infrastructure with SOC 2 certification, ensuring patient data remains secure and private.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📊</div>
+                <h3>Evidence-Based Insights</h3>
+                <p>Every recommendation backed by real-world evidence and transparent reasoning you can review and validate.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🚀</div>
+                <h3>Continuous Learning</h3>
+                <p>Adaptive algorithms that improve with your data, delivering increasingly personalized and accurate insights over time.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💡</div>
+                <h3>Measurable Impact</h3>
+                <p>Built-in analytics track improvements in quality metrics, operational efficiency, and financial performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases" id="use-cases">
+        <div class="section-header">
+            <h2>Real-World <span class="gradient-text">Applications</span></h2>
+            <p>See how AptivIQ transforms healthcare delivery across different settings</p>
+        </div>
+        <div class="use-case-tabs">
+            <button class="tab-button active" onclick="showTab('clinical')">Clinical Intelligence</button>
+            <button class="tab-button" onclick="showTab('operational')">Operational Excellence</button>
+            <button class="tab-button" onclick="showTab('emergency')">Emergency Response</button>
+            <button class="tab-button" onclick="showTab('population')">Population Health</button>
+        </div>
+        
+        <div id="clinical" class="tab-content active">
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">🏥</div>
+                    <div>
+                        <h3>Clinical Decision Intelligence</h3>
+                    </div>
+                </div>
+                <div class="use-case-content">
+                    <p>Augment clinical expertise with AI-powered insights that enhance diagnostic accuracy and treatment effectiveness while reducing cognitive burden on healthcare providers.</p>
+                    <ul class="use-case-benefits">
+                        <li>Early warning system detects patient deterioration 6-12 hours before traditional methods</li>
+                        <li>Treatment recommendation engine considers 1000+ variables for personalized care plans</li>
+                        <li>Reduce diagnostic errors by 35% through pattern recognition and anomaly detection</li>
+                        <li>Automated care coordination reduces handoff errors by 50%</li>
+                        <li>Evidence-based protocols adapted to individual patient characteristics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div id="operational" class="tab-content">
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">⚙️</div>
+                    <div>
+                        <h3>Operational Intelligence Platform</h3>
+                    </div>
+                </div>
+                <div class="use-case-content">
+                    <p>Transform administrative operations with predictive analytics and intelligent automation that optimize resource utilization and reduce costs.</p>
+                    <ul class="use-case-benefits">
+                        <li>Predict staffing needs with 95% accuracy, reducing overtime costs by 40%</li>
+                        <li>Smart scheduling reduces patient wait times by 35% while improving throughput</li>
+                        <li>Supply chain optimization prevents stockouts and reduces waste by 30%</li>
+                        <li>Revenue cycle intelligence accelerates reimbursements by 25 days</li>
+                        <li>Automated prior authorization reduces processing time from days to hours</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div id="emergency" class="tab-content">
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">🚨</div>
+                    <div>
+                        <h3>Emergency Department Optimization</h3>
+                    </div>
+                </div>
+                <div class="use-case-content">
+                    <p>Revolutionize emergency care with real-time intelligence that improves patient flow, reduces wait times, and ensures critical cases receive immediate attention.</p>
+                    <ul class="use-case-benefits">
+                        <li>Predict ED surge events 2-4 hours in advance with 89% accuracy</li>
+                        <li>AI-powered triage reduces door-to-doctor time by 35%</li>
+                        <li>Dynamic resource allocation based on real-time patient acuity</li>
+                        <li>Automated bed management reduces boarding time by 45%</li>
+                        <li>Predictive models identify patients at risk for left-without-being-seen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div id="population" class="tab-content">
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">👥</div>
+                    <div>
+                        <h3>Population Health Intelligence</h3>
+                    </div>
+                </div>
+                <div class="use-case-content">
+                    <p>Proactively manage population health with predictive analytics that identify at-risk patients and enable targeted interventions at scale.</p>
+                    <ul class="use-case-benefits">
+                        <li>Risk stratification identifies high-risk patients 3-6 months before acute events</li>
+                        <li>Personalized intervention recommendations based on social determinants of health</li>
+                        <li>Reduce hospital admissions by 20% through proactive care management</li>
+                        <li>Track health equity metrics and identify care gaps across populations</li>
+                        <li>Optimize care team resources with intelligent patient panel management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Transform Healthcare Decision-Making?</h2>
+        <p>Join leading healthcare organizations using connected intelligence to improve outcomes and efficiency</p>
+        <a href="#demo" class="primary-button">Schedule Your Personalized Demo</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#security">Security & Compliance</a>
+                <a href="#hipaa">HIPAA Statement</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+            <p>&copy; 2024 AptivIQ. Empowering healthcare through connected intelligence.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.pain-card, .benefit-item, .intelligence-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
