@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -52,6 +55,7 @@
             padding: 1rem 5%;
             max-width: 1400px;
             margin: 0 auto;
+            height: 70px;
         }
 
         .logo {
@@ -158,6 +162,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00a6a6 100%);
             position: relative;
             overflow: hidden;
+            padding-top: 80px; /* Account for fixed header */
         }
 
         .hero::before {
@@ -199,7 +204,7 @@
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 5%;
+            padding: 2rem 5%;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
@@ -209,10 +214,11 @@
         }
 
         .hero-text h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             color: white;
             margin-bottom: 1.5rem;
             animation: fadeInUp 0.8s ease;
+            line-height: 1.2;
         }
 
         .hero-text h1 span {
@@ -587,6 +593,101 @@
             color: var(--text-light);
         }
 
+        /* Key Features Section */
+        .key-features {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(0, 166, 166, 0.05));
+            position: relative;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--primary-teal));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .feature-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-teal);
+            font-weight: bold;
+        }
+
         /* Use Cases Section */
         .use-cases {
             padding: 5rem 5%;
@@ -685,6 +786,160 @@
             font-weight: bold;
         }
 
+        /* About Section */
+        .about-section {
+            padding: 5rem 5%;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .about-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 166, 166, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-intro h3 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .about-intro p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .about-feature {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .about-feature::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--gradient-1));
+            transition: width 0.3s ease;
+        }
+
+        .about-feature:hover::before {
+            width: 80%;
+        }
+
+        .about-feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-teal), var(--gradient-1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        .about-feature:hover .about-icon::after {
+            width: 120%;
+            height: 120%;
+        }
+
+        @keyframes gentleRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .about-feature:nth-child(2) .about-icon {
+            animation: gentleRotate 20s linear infinite;
+        }
+
+        .about-feature:hover .about-icon {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 166, 166, 0.3);
+        }
+
+        .about-feature:nth-child(2):hover .about-icon {
+            transform: scale(1.1) rotate(0deg);
+            animation-play-state: paused;
+        }
+
+        .about-feature h4 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .about-feature p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
         /* CTA Section */
         .cta-section {
             padding: 5rem 5%;
@@ -765,6 +1020,11 @@
             .intelligence-grid {
                 grid-template-columns: 1fr;
             }
+
+            .about-features {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -772,13 +1032,19 @@
                 display: none;
             }
 
+            .hero {
+                padding-top: 70px;
+            }
+
             .hero-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                padding: 1rem 5%;
             }
 
             .hero-text h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+                line-height: 1.3;
             }
 
             .hero-buttons {
@@ -789,6 +1055,18 @@
             .use-case-header {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .about-section::before {
+                width: 300px;
+                height: 300px;
+                right: -30%;
+            }
+
+            .about-section::after {
+                width: 250px;
+                height: 250px;
+                left: -20%;
             }
         }
     </style>
@@ -931,6 +1209,7 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#features">Features</a></li>
                 <li><a href="#use-cases">Use Cases</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact" class="cta-button">Request Demo</a></li>
@@ -1212,6 +1491,36 @@
                 <h3>Capacity Crises</h3>
                 <p>Unpredictable demand creates bottlenecks. Our AI forecasts patient flow with <span class="metric">92% accuracy</span>, enabling proactive staffing and bed management that prevents overcrowding.</p>
             </div>
+            <div class="pain-card">
+                <div class="pain-icon">🌊</div>
+                <h3>Data Overload</h3>
+                <p>Organizations are drowning in data but starving for insights. Our platform transforms raw data into actionable intelligence.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">⏳</div>
+                <h3>Slow Decision Cycles</h3>
+                <p>Manual analysis leads to delayed decisions. Our AI accelerates insight generation by <span class="metric">10x</span>.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🔒</div>
+                <h3>Static AI Systems</h3>
+                <p>Traditional AI becomes outdated quickly. Our adaptive models continuously learn from new data and user feedback.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🔄</div>
+                <h3>Lack of Adaptability</h3>
+                <p>Static reports become obsolete quickly. Our system continuously learns and adapts to new information.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🏢</div>
+                <h3>Siloed Knowledge</h3>
+                <p>Critical information gets trapped in departments. We break down silos for unified decision-making.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">💸</div>
+                <h3>High Cost of Errors</h3>
+                <p>Poor decisions have massive financial impact. Our predictive models reduce risk and improve outcomes.</p>
+            </div>
         </div>
     </section>
 
@@ -1251,6 +1560,60 @@
                 <div class="benefit-icon">💡</div>
                 <h3>Measurable Impact</h3>
                 <p>Built-in analytics track improvements in quality metrics, operational efficiency, and financial performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="key-features" id="features">
+        <div class="section-header">
+            <h2>Revolutionary <span class="gradient-text">Key Features</span></h2>
+            <p>Experience the cutting-edge capabilities that set AptivIQ apart</p>
+        </div>
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-content">
+                        <h3>Adaptive Scenario Simulation</h3>
+                        <p>Test decisions in evolving virtual environments. Our system continuously improves its simulations by learning from real-world outcomes and new data patterns.</p>
+                        <ul class="feature-list">
+                            <li>Models that improve with every decision - risk reduction increases over time</li>
+                            <li>Identify optimal strategies in minutes</li>
+                            <li>Continuously updated with new data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h3>Real-Time Decision Monitoring</h3>
+                        <p>Track the impact of decisions as they unfold with our real-time monitoring dashboard. Get alerts when outcomes deviate from projections.</p>
+                        <ul class="feature-list">
+                            <li>Instant visibility into decision performance</li>
+                            <li>Automated course correction recommendations</li>
+                            <li>Customizable alerts and thresholds</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">🤝</div>
+                    <div class="feature-content">
+                        <h3>Collaborative Decision Workspace</h3>
+                        <p>Bring stakeholders together in a shared environment to evaluate options, debate scenarios, and reach consensus with full context.</p>
+                        <ul class="feature-list">
+                            <li>Secure document sharing and annotation</li>
+                            <li>Version control for decision artifacts</li>
+                            <li>Audit trail for compliance and learning</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1353,6 +1716,33 @@
         </div>
     </section>
 
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="section-header" style="position: relative; z-index: 1;">
+            <h2>Why Choose <span class="gradient-text">AptivIQ?</span></h2>
+            <p>We stand apart by delivering truly adaptive intelligence, tailored for your success.</p>
+        </div>
+        <div class="about-container">
+            <div class="about-features">
+                <div class="about-feature">
+                    <div class="about-icon">⚡</div>
+                    <h4>Unrivaled Accuracy & Speed</h4>
+                    <p>Our advanced algorithms process vast datasets rapidly, providing highly accurate insights that enable quick, confident decisions.</p>
+                </div>
+                <div class="about-feature">
+                    <div class="about-icon">🧬</div>
+                    <h4>Continuous Adaptation</h4>
+                    <p>Unlike static models, AptivIQ continuously learns and updates its understanding, ensuring relevance and effectiveness even as conditions change.</p>
+                </div>
+                <div class="about-feature">
+                    <div class="about-icon">🔌</div>
+                    <h4>Seamless Integration</h4>
+                    <p>Designed to integrate effortlessly with your existing healthcare IT infrastructure, minimizing disruption and maximizing ROI.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section">
         <h2>Ready to Transform Healthcare Decision-Making?</h2>
@@ -1434,7 +1824,7 @@
         }, observerOptions);
 
         // Observe elements
-        document.querySelectorAll('.pain-card, .benefit-item, .intelligence-card').forEach(el => {
+        document.querySelectorAll('.pain-card, .benefit-item, .intelligence-card, .feature-card, .about-feature').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'all 0.6s ease';
